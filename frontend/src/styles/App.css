@@ -8,3 +8,12 @@
   padding: 2rem;
   text-align: center;
 }
+
+.map-container {
+  height: 400px;
+  width: 400px;
+  position: relative;
+  margin: 0 auto;
+  background-color: blueviolet;
+  overflow: hidden;
+}

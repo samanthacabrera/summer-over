@@ -3,32 +3,23 @@ import React from 'react';
 const Guide = () => {
   return (
     <section id="guide" className="py-16 px-4 bg-gray-100">
-      <div className="max-w-4xl mx-auto">
-        <h2 className="text-3xl font-bold mb-6 text-center">How to Use the Application</h2>
-        <div className="space-y-8">
-          <div className="bg-white p-6 rounded-lg shadow-md">
-            <h3 className="text-xl font-semibold mb-2">1. Create an Account</h3>
-            <p>Sign up to start using the app. Fill in your details and verify your email address to activate your account.</p>
+      <div className="max-w-3xl mx-auto">
+        <h2 className="text-4xl font-bold mb-8 text-center text-gray-800">How to Get Started</h2>
+        <div className="flex flex-col md:flex-row justify-between space-y-8 md:space-y-0 md:space-x-8">
+          <div className="bg-white p-8 rounded-lg shadow-lg flex-1 text-center">
+            <h3 className="text-2xl font-semibold mb-4">1. Sign Up & Set Up</h3>
+            <p className="text-gray-700">Create an account and enable location access to start exploring local swap listings.</p>
           </div>
-          <div className="bg-white p-6 rounded-lg shadow-md">
-            <h3 className="text-xl font-semibold mb-2">2. Allow Location Access</h3>
-            <p>Grant permission to access your location so you can see local swap groups and find nearby exchanges.</p>
+          <div className="bg-white p-8 rounded-lg shadow-lg flex-1 text-center">
+            <h3 className="text-2xl font-semibold mb-4">2. Explore & Offer</h3>
+            <p className="text-gray-700">When you see an item you like, you can offer an item of yours to swap.</p>
           </div>
-          <div className="bg-white p-6 rounded-lg shadow-md">
-            <h3 className="text-xl font-semibold mb-2">3. Browse Groups and Listings</h3>
-            <p>Explore various swap groups and listings in your area. Use filters to find items and groups that match your interests.</p>
+          <div className="bg-white p-8 rounded-lg shadow-lg flex-1 text-center">
+            <h3 className="text-2xl font-semibold mb-4">3. Meet & Swap</h3>
+            <p className="text-gray-700">If your offer is accepted, you will be notified and you can arrange solo swap or attend a community swap in your area.</p>
           </div>
-          <div className="bg-white p-6 rounded-lg shadow-md">
-            <h3 className="text-xl font-semibold mb-2">4. Offer Your Item</h3>
-            <p>When you find something you like, offer one of your items for swap. The other user can accept or decline your offer. You'll be notified if they accept.</p>
-          </div>
-          <div className="bg-white p-6 rounded-lg shadow-md">
-            <h3 className="text-xl font-semibold mb-2">5. Meet and Swap</h3>
-            <p>On the day of the local group swap, meet up with the other user and complete the exchange.</p>
-          </div>
-          <div className="bg-white p-6 rounded-lg shadow-md">
-            <h3 className="text-xl font-semibold mb-2">6. Swap Indefinitely</h3>
-            <p>Continue to swap items as many times as you like. You can keep offering new items and participating in swaps to refresh your wardrobe.</p>
+          <div>
+            <p>Continue swapping items indefinitely to refresh your wardrobe afforably & sustainably!</p>
           </div>
         </div>
       </div>

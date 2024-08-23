@@ -2,7 +2,6 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import Home from './pages/Home/Home';
 import Profile from './pages/Profile/Profile';
-import Group from './pages/Group/Group';
 
 const App = () => {
   return (
@@ -23,7 +22,6 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/profile" element={<Profile />} />
-          <Route path="/group" element={<Group />} />
         </Routes>
     </Router>
   );
