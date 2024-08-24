@@ -11,14 +11,6 @@ const FAQ = () => {
     {
       question: "What are the guidelines for swap items?",
       answer: "Please ensure that all items are clean and free of significant damage. Transparency is key to a successful swap, so present your items as you would like to receive them."
-    },
-    {
-      question: "What are swap events?",
-      answer: "Swap events provide an opportunity to refresh wardrobes while connecting with others in the community. You can learn more on the events page."
-    },
-    {
-      question: "How can I set up a swap event?",
-      answer: "To set up a swap event in your area, navigate to the events page and click 'create new event'."
     }
   ];
 
