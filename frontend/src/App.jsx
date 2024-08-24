@@ -14,9 +14,6 @@ const App = () => {
             <li>
               <Link to="/profile" className="hover:underline">Profile</Link>
             </li>
-            <li>
-              <Link to="/group" className="hover:underline">Group</Link>
-            </li>
           </ul>
         </nav>
         <Routes>

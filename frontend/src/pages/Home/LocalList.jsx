@@ -25,6 +25,7 @@ const LocalList = () => {
 
   return (
     <div>
+        <h1>Local Swaps</h1>
       {location.latitude && location.longitude ? (
         <Map latitude={location.latitude} longitude={location.longitude} listings={listings} />
       ) : (
