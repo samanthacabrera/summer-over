@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import ItemsList from '/Users/samanthacabrera/webDev/summer-over/frontend/src/components/ItemsList';
+import ItemsList from '../../components/OfferList';
 
 const LocalList = () => {
   const [location, setLocation] = useState({ latitude: null, longitude: null });

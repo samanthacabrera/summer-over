@@ -1,48 +1,117 @@
-import React from 'react';
+import React, { useState } from 'react';
+import ItemCard from '../../components/ItemCard';
+import OfferCard from '../../components/OfferCard';
 
 const Profile = () => {
-  // Sample data
-  const items = [
-    { id: 1, name: 'Red Dress', swappedWith: 'Blue Shirt' },
-    { id: 2, name: 'Leather Jacket', swappedWith: null },
-    { id: 3, name: 'Summer Hat', swappedWith: 'Scarf' },
-    { id: 4, name: 'Denim Jeans', swappedWith: null },
+  const initialItems = [
+    { 
+      id: 1, 
+      name: 'Red Dress', 
+      swappedWith: null, 
+      city: 'Denver',
+      offers: [
+        { name: 'Blue Shirt', description: 'A stylish blue shirt made of 100% cotton.' },
+        { name: 'Green Scarf', description: 'A warm green scarf, perfect for winter.' },
+        { name: 'Yellow Hat', description: 'A bright yellow hat, great for sunny days.' }
+      ] 
+    },
+    { 
+      id: 2, 
+      name: 'Leather Jacket', 
+      swappedWith: null, 
+      city: 'Denver',
+      offers: [
+        { name: 'Winter Coat', description: 'A heavy winter coat, ideal for snowy weather.' },
+        { name: 'Brown Boots', description: 'Durable brown boots, made of genuine leather.' }
+      ] 
+    },
+    { 
+      id: 3, 
+      name: 'Summer Hat', 
+      swappedWith: 'Scarf', 
+      city: 'Boulder',
+      offers: [] 
+    },
+    { 
+      id: 4, 
+      name: 'Denim Jeans', 
+      swappedWith: null, 
+      city: 'Boulder',
+      offers: [
+        { name: 'Sneakers', description: 'Comfortable sneakers, perfect for running.' },
+        { name: 'White T-Shirt', description: 'A classic white t-shirt, made of soft cotton.' },
+        { name: 'Black Belt', description: 'A stylish black belt, adjustable and versatile.' }
+      ] 
+    },
+    { 
+      id: 5, 
+      name: 'Wool Sweater', 
+      swappedWith: null, 
+      city: 'Centennial',
+      offers: [
+        { name: 'Red Scarf', description: 'A warm red scarf, perfect for chilly days.' },
+        { name: 'Gray Beanie', description: 'A cozy gray beanie, great for winter.' }
+      ] 
+    },
   ];
+
+  const [items, setItems] = useState(initialItems);
+  const [selectedOffer, setSelectedOffer] = useState(null);
+  const [selectedItemId, setSelectedItemId] = useState(null);
+
+  const handleOfferClick = (itemId, offer) => {
+    setSelectedOffer(offer);
+    setSelectedItemId(itemId);
+  };
+
+  const handleFinalizeSwap = () => {
+    if (selectedItemId && selectedOffer) {
+      setItems((prevItems) =>
+        prevItems.map((item) =>
+          item.id === selectedItemId && !item.swappedWith
+            ? { ...item, swappedWith: selectedOffer.name }
+            : item
+        )
+      );
+      setSelectedOffer(null);
+      setSelectedItemId(null);
+    }
+  };
+
+  const handleCloseModal = () => {
+    setSelectedOffer(null);
+    setSelectedItemId(null);
+  };
 
   return (
     <div className="p-6">
       <h1 className="text-2xl font-bold mb-6">Profile Page</h1>
       <p className="mb-6">Manage your items and view your swap history.</p>
       
-      <div className="hidden md:grid grid-cols-2 gap-6 mb-4">
+      <div className="hidden md:grid grid-cols-4 gap-6 mb-4">
         <h2 className="text-lg font-semibold">My Item</h2>
         <h2 className="text-lg font-semibold text-center">Swapped Item</h2>
+        <h2 className="text-lg font-semibold text-center">City</h2>
+        <h2 className="text-lg font-semibold text-center">Choose Swap</h2>
       </div>
       
       <div className="space-y-6">
         {items.map((item) => (
-          <div key={item.id} className="bg-gray-100 p-4 rounded shadow flex flex-col md:flex-row items-center justify-between">
-            <div className="w-full md:w-1/2 mb-4 md:mb-0">
-              <h3 className="text-lg font-medium">{item.name}</h3>
-              <button className={`mt-2 px-4 py-2 text-white rounded ${item.swappedWith ? 'bg-green-500' : 'bg-red-500'}`}>
-                {item.swappedWith ? 'Swapped' : 'Unswapped'}
-              </button>
-            </div>
-            
-            <div className="w-full md:w-1/2">
-              {item.swappedWith ? (
-                <div className="text-center">
-                  <span className="block mt-2 text-gray-700">{item.swappedWith}</span>
-                </div>
-              ) : (
-                <div className="text-center">
-                  <span className="block mt-2 text-gray-400">n/a</span>
-                </div>
-              )}
-            </div>
-          </div>
+          <ItemCard
+            key={item.id} 
+            item={item} 
+            onOfferClick={handleOfferClick}
+          />
         ))}
       </div>
+
+      {selectedOffer && (
+        <OfferCard
+          offer={selectedOffer}
+          onClose={handleCloseModal}
+          onFinalize={handleFinalizeSwap}
+        />
+      )}
     </div>
   );
 };
