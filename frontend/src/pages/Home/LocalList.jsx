@@ -47,7 +47,7 @@ const LocalList = () => {
     <div className="container mx-auto p-4">
       {location.latitude && location.longitude ? (
         <div className="max-w-4xl mx-auto">
-          <h2 className="subheading">Available Swaps by City</h2>
+          <h2 className="subheading">Nearby Swaps by City</h2>
 
           {/* Layout for larger screens */}
           <div className="hidden md:block">
@@ -56,7 +56,7 @@ const LocalList = () => {
                 {Object.keys(listings).map(city => (
                   <button
                     key={city}
-                    className={`p-2 border rounded-full ${openCity === city ? 'font-semibold text-slate-400 bg-white' : ''} hover:scale-105 transition-all duration-300`}
+                    className={`p-2 border rounded-full ${openCity === city ? 'font-semibold text-teal-600 bg-white' : ''} hover:scale-105 transition-all duration-300`}
                     onClick={() => handleToggle(city)}
                   >
                     {city}
@@ -115,13 +115,13 @@ const LocalList = () => {
                         <p>Condition: {item.condition}</p>
                         <div className="flex justify-center space-x-4 pb-8">
                           <button
-                            className="p-2 rounded border hover:bg-white hover:text-slate-400 transition duration-200"
+                            className="p-2 rounded border hover:bg-white hover:text-teal-600 transition duration-200"
                             onClick={() => handleMessageOwner(item.owner)}
                           >
                             Message Owner
                           </button>
                           <button
-                            className="p-2 rounded border hover:bg-white hover:text-slate-400 transition duration-200"
+                            className="p-2 rounded border hover:bg-white hover:text-teal-600 transition duration-200"
                             onClick={() => handleMessageOwner(item.owner)}
                           >
                             Make an Offer
