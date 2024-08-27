@@ -88,10 +88,9 @@ const Profile = () => {
       <h1 className="text-2xl font-bold mb-6">Profile Page</h1>
       <p className="mb-6">Manage your items and view your swap history.</p>
       
-      <div className="hidden md:grid grid-cols-4 gap-6 mb-4">
+      <div className="hidden md:grid grid-cols-3  mb-4">
         <h2 className="text-lg font-semibold">My Item</h2>
         <h2 className="text-lg font-semibold text-center">Swapped Item</h2>
-        <h2 className="text-lg font-semibold text-center">City</h2>
         <h2 className="text-lg font-semibold text-center">Choose Swap</h2>
       </div>
       
