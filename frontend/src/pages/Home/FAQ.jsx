@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const FAQ = () => {
   const [activeIndex, setActiveIndex] = useState(null);
@@ -6,6 +6,21 @@ const FAQ = () => {
   const toggleFAQ = (index) => {
     setActiveIndex(activeIndex === index ? null : index);
   };
+
+  useEffect(() => {
+    const handleHashChange = () => {
+      if (window.location.hash === '#faq') {
+        document.getElementById('faq').scrollIntoView({ behavior: 'smooth' });
+      }
+    };
+
+    handleHashChange(); // Initial check
+    window.addEventListener('hashchange', handleHashChange); // Listen for hash changes
+
+    return () => {
+      window.removeEventListener('hashchange', handleHashChange);
+    };
+  }, []);
 
   const faqs = [
     {
@@ -23,9 +38,9 @@ const FAQ = () => {
   ];
 
   return (
-    <section id="faq" className="py-16 px-4 bg-gradient-to-b from-green-50 to-white">
+    <section id="faq" className="py-16 px-4">
       <div className="max-w-4xl mx-auto">
-        <h2 className="text-4xl font-bold mb-8 text-center text-gray-800">Frequently Asked Questions</h2>
+        <h2 className="text-4xl font-bold mb-8">Frequently Asked Questions</h2>
         <div className="space-y-6">
           {faqs.map((faq, index) => (
             <div key={index} className="bg-white p-6 rounded-lg shadow-md">

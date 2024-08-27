@@ -4,7 +4,6 @@ const LocalList = () => {
   const [location, setLocation] = useState({ latitude: null, longitude: null });
   const [listings, setListings] = useState({});
   const [openCity, setOpenCity] = useState(null);
-  const [selectedItem, setSelectedItem] = useState(null);
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
@@ -45,27 +44,26 @@ const LocalList = () => {
   };
 
   return (
-    <div className="container mx-auto p-4 bg-gradient-to-b from-pink-50 to-white">
-      
+    <div className="container mx-auto p-4">
       {location.latitude && location.longitude ? (
         <div>
-          <h2 className="text-xl font-semibold mb-4">Available Listings by City</h2>
-          <ul className=" pl-5">
+          <h2 className="text-2xl font-bold mb-6">Available Listings by City</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {Object.keys(listings).map(city => (
-              <li key={city} className="mb-4">
-                <button
-                  onClick={() => handleToggle(city)}
-                  className="text-lg font-medium focus:outline-none"
-                >
-                  {city}
-                </button>
+              <div 
+                key={city} 
+                className="p-6 border border-gray-200 rounded-lg shadow-lg bg-white cursor-pointer hover:shadow-xl transition-shadow duration-300"
+                onClick={() => handleToggle(city)}
+              >
+                <h3 className="text-xl font-semibold mb-2">{city}</h3>
+                <p className="text-sm text-gray-500">{listings[city].length} items available</p>
                 {openCity === city && (
-                  <div className="mt-2 space-y-4">
+                  <div className="mt-4 space-y-4">
                     {listings[city].map(item => (
-                      <div key={item.id} className="p-4 border border-gray-200 rounded bg-white flex flex-col md:flex-row md:items-center md:space-x-4">
-                        <img src={item.image}  className="w-full h-40 object-cover rounded md:w-1/3" />
+                      <div key={item.id} className="flex flex-col md:flex-row md:items-center md:space-x-4">
+                        <img src={item.image} className="w-full h-40 object-cover rounded md:w-1/3" />
                         <div className="mt-2 md:mt-0 md:w-2/3">
-                          <h3 className="text-lg font-semibold">{item.name}</h3>
+                          <h4 className="text-lg font-semibold">{item.name}</h4>
                           <p className="text-gray-700 mb-2">{item.description}</p>
                           <p className="text-gray-600">Size: {item.size}</p>
                           <p className="text-gray-600">Condition: {item.condition}</p>
@@ -80,9 +78,9 @@ const LocalList = () => {
                     ))}
                   </div>
                 )}
-              </li>
+              </div>
             ))}
-          </ul>
+          </div>
         </div>
       ) : (
         <p>Loading listings...</p>

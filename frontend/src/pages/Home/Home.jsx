@@ -6,6 +6,7 @@ import LocalList from './LocalList';
 
 
 const Home = () => {
+
   return (
     <div className="space-y-24">
       <Hero />
