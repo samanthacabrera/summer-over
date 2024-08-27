@@ -13,7 +13,7 @@ const Footer = () => {
   };
 
   return (
-    <footer className="container flex justify-around text-sm">
+    <footer className="container flex justify-around text-sm pt-20">
       <a href="/" className="hover:underline">Home</a>
       <a href="/profile" className="hover:underline">Profile</a>
       <a href="#faq" onClick={handleFAQClick} className="hover:underline">FAQ</a>

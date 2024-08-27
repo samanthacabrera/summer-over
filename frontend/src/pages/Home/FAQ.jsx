@@ -39,11 +39,11 @@ const FAQ = () => {
 
   return (
     <section id="faq" className="py-16 px-4">
-      <div className="max-w-4xl mx-auto">
-        <h2 className="text-4xl font-bold mb-8">Frequently Asked Questions</h2>
+      <div className="max-w-2xl mx-auto">
+        <h2 className="subheading">Frequently Asked Questions</h2>
         <div className="space-y-6">
           {faqs.map((faq, index) => (
-            <div key={index} className="bg-white p-6 rounded-lg shadow-md">
+            <div key={index} className="p-6 border border-slate-200 rounded-lg shadow-lg bg-white bg-opacity-10 hover:shadow-xl transition-all duration-300">
               <h3
                 className="text-lg mb-4 cursor-pointer"
                 onClick={() => toggleFAQ(index)}
@@ -51,7 +51,7 @@ const FAQ = () => {
                 {faq.question}
               </h3>
               {activeIndex === index && (
-                <p className="text-gray-700">{faq.answer}</p>
+                <p>{faq.answer}</p>
               )}
             </div>
           ))}

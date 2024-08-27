@@ -1,25 +1,23 @@
 import React from 'react';
-import OfferList from './OfferList';
+import OfferList from '../pages/Profile/OfferList';
 
 const ItemCard = ({ item, onOfferClick }) => {
   return (
-    <div className="bg-gray-100 p-4 rounded shadow flex flex-col md:flex-row items-center justify-between">
+    <div className="p-6 border border-slate-200 rounded-lg shadow-lg bg-white bg-opacity-10 hover:shadow-xl transition-all duration-300">
       <div className="w-full md:w-1/3 mb-4 md:mb-0">
         <h3 className="text-lg font-medium">{item.name}</h3>
-        <button className={`mt-2 px-4 py-2 text-white rounded ${item.swappedWith ? 'bg-green-500' : 'bg-red-500'}`}>
-          {item.swappedWith ? 'Swapped' : 'Unswapped'}
+        <button className={`mt-2 px-4 py-2 rounded bg-white bg-opacity-90 border font-bold ${item.swappedWith ? 'border-green-500 text-green-500' : 'border-red-500 text-red-500'}`}>
+          {item.swappedWith ? 'Swapped With' : 'Unswapped'}
         </button>
       </div>
 
       <div className="w-full md:w-1/3 mb-4 md:mb-0">
         {item.swappedWith ? (
           <div className="text-center">
-            <span className="block mt-2 text-gray-700">{item.swappedWith}</span>
+            <span className="block mt-2">{item.swappedWith}</span>
           </div>
         ) : (
-          <div className="text-center">
-            <span className="block mt-2 text-gray-400">n/a</span>
-          </div>
+          <></>
         )}
       </div>
 

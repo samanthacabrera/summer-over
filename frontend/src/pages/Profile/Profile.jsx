@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import Stats from './Stats';
 import ItemCard from '../../components/ItemCard';
 import OfferCard from '../../components/OfferCard';
 
 const Profile = () => {
+  const user = 'Sam';
   const initialItems = [
     { 
       id: 1, 
@@ -84,23 +86,68 @@ const Profile = () => {
   };
 
   return (
-    <div className="p-6">
-      <h1 className="text-2xl font-bold mb-6">Profile Page</h1>
-      <p className="mb-6">Manage your items and view your swap history.</p>
-      
-      <div className="hidden md:grid grid-cols-3  mb-4">
-        <h2 className="text-lg font-semibold">My Item</h2>
-        <h2 className="text-lg font-semibold text-center">Swapped Item</h2>
-        <h2 className="text-lg font-semibold text-center">Choose Swap</h2>
+    <div className="flex flex-col">
+      <h1 className="mt-24 text-6xl self-center font-semibold w-fit p-8 rounded-lg hover:border-8 hover:bg-teal-700 hover:bg-opacity-50 transition-all duration-500">{user}'s Profile</h1>
+      <h2 className="subheading">Swaps</h2>
+     
+      <div className="hidden md:grid md:grid-cols-4 gap-4 mb-6">
+        <div className="col-span-1 font-semibold">My Item</div>
+        <div className="col-span-1 font-semibold text-center">Swapped With</div>
+        <div className="col-span-2 font-semibold text-center">Available Offers</div>
       </div>
-      
+
       <div className="space-y-6">
         {items.map((item) => (
-          <ItemCard
-            key={item.id} 
-            item={item} 
-            onOfferClick={handleOfferClick}
-          />
+          <div key={item.id} className="flex flex-col md:grid md:grid-cols-4 gap-4">
+           
+            <div className="md:hidden">
+              <ItemCard
+                item={item} 
+                onOfferClick={handleOfferClick}
+              />
+            </div>
+
+      
+            <div className="hidden md:flex md:col-span-1 p-4 border border-gray-200 rounded-lg shadow-md mb-4">
+              <h3 className="text-lg font-semibold">{item.name}</h3>
+            </div>
+
+            <div className="hidden md:flex md:col-span-1 p-4 border border-gray-200 rounded-lg shadow-md mb-4">
+              <p>{item.swappedWith ? item.swappedWith : 'n/a'}</p>
+            </div>
+
+            <div className="hidden md:flex md:col-span-2 border border-gray-200 rounded-lg shadow-md mb-4">
+              {item.offers.length > 0 ? (
+                <table className="w-full">
+                  <thead>
+                    <tr>
+                      <th className="p-6 text-left">Name</th>
+                      <th className="text-left">Description</th>
+                      <th className="text-center">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {item.offers.map((offer, index) => (
+                      <tr key={index} className="border-t hover:bg-white hover:text-slate-400 transition duration-200">
+                        <td>{offer.name}</td>
+                        <td>{offer.description}</td>
+                        <td className="py-4 text-center">
+                          <button
+                            className="px-4 py-2 border rounded-md"
+                            onClick={() => handleOfferClick(item.id, offer)}
+                          >
+                            View
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              ) : (
+                <p className="text-center">No Offers</p>
+              )}
+            </div>
+          </div>
         ))}
       </div>
 
@@ -111,6 +158,7 @@ const Profile = () => {
           onFinalize={handleFinalizeSwap}
         />
       )}
+      <Stats />
     </div>
   );
 };
