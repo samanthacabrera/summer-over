@@ -108,7 +108,7 @@ const LocalList = () => {
             {Object.keys(listings).map(city => (
               <div key={city} className="text-center">
                 <button
-                  className="w-full p-8 rounded-lg border-current border-8 shadow-lg hover:shadow-xl hover:bg-white hover:bg-opacity-30 transition-all duration-300"
+                  className="w-full p-8 rounded-lg border-current border-4 shadow-lg hover:shadow-xl transition-all duration-300"
                   onClick={() => handleToggle(city)}
                 >
                   <h3 className="text-xl font-semibold mb-2">{city}</h3>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import ItemCard from '../../components/ItemCard';
 import OfferCard from '../../components/OfferCard';
+import Filter from '../../components/Filter';
 
 const Profile = () => {
   const user = 'Sam';
@@ -59,6 +59,7 @@ const Profile = () => {
   const [items, setItems] = useState(initialItems);
   const [selectedOffer, setSelectedOffer] = useState(null);
   const [selectedItemId, setSelectedItemId] = useState(null);
+  const [filter, setFilter] = useState('all');
 
   const handleOfferClick = (itemId, offer) => {
     setSelectedOffer(offer);
@@ -84,67 +85,48 @@ const Profile = () => {
     setSelectedItemId(null);
   };
 
+  const filteredItems = items.filter(item => {
+    if (filter === 'past') return item.swappedWith;
+    if (filter === 'current') return !item.swappedWith && item.offers.length > 0;
+    return true;
+  });
+
   return (
-    <div className="flex flex-col">
-      <h1 className="mt-24 text-6xl self-center font-semibold w-fit p-8 rounded-lg border-current border-8 hover:text-white transition-all duration-500">{user}'s Profile</h1>
-      <h2 className="subheading">Swaps</h2>
-     
-      <div className="hidden md:grid md:grid-cols-4 gap-4 mb-6">
-        <div className="col-span-1 font-semibold">My Item</div>
-        <div className="col-span-1 font-semibold text-center">Swapped With</div>
-        <div className="col-span-2 font-semibold text-center">Available Offers</div>
-      </div>
+    <div className="flex flex-col p-8">
+      <h1 className="mt-8 text-4xl self-center font-semibold">{user}'s Profile</h1>
+      <h2 className="subheading mt-6">Swaps</h2>
+
+      <Filter filter={filter} setFilter={setFilter} />
 
       <div className="space-y-6">
-        {items.map((item) => (
-          <div key={item.id} className="flex flex-col md:grid md:grid-cols-4 gap-4">
-           
-            <div className="md:hidden">
-              <ItemCard
-                item={item} 
-                onOfferClick={handleOfferClick}
-              />
-            </div>
-
-      
-            <div className="hidden md:flex md:col-span-1 p-4 border border-gray-200 rounded-lg shadow-md mb-4">
-              <h3 className="text-lg font-semibold">{item.name}</h3>
-            </div>
-
-            <div className="hidden md:flex md:col-span-1 p-4 border border-gray-200 rounded-lg shadow-md mb-4">
-              <p>{item.swappedWith ? item.swappedWith : 'n/a'}</p>
-            </div>
-
-            <div className="hidden md:flex md:col-span-2 border border-gray-200 rounded-lg shadow-md mb-4">
-              {item.offers.length > 0 ? (
-                <table className="w-full">
-                  <thead>
-                    <tr>
-                      <th className="p-6 text-left">Name</th>
-                      <th className="text-left">Description</th>
-                      <th className="text-center">Action</th>
-                    </tr>
-                  </thead>
-                  <tbody>
+        {filteredItems.map((item) => (
+          <div key={item.id} className="border p-4 rounded-lg shadow-md">
+            <div className="flex flex-col md:flex-row">
+              <div className="md:w-1/3">
+                <h3 className="text-lg font-semibold">{item.name}</h3>
+                <p>{item.swappedWith ? `Swapped With: ${item.swappedWith}` : 'Available'}</p>
+                <p>City: {item.city}</p>
+              </div>
+              <div className="md:w-2/3 mt-4 md:mt-0">
+                {item.offers.length > 0 ? (
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     {item.offers.map((offer, index) => (
-                      <tr key={index} className="border-t hover:bg-white hover:text-slate-400 transition duration-200">
-                        <td>{offer.name}</td>
-                        <td>{offer.description}</td>
-                        <td className="py-4 text-center">
-                          <button
-                            className="px-4 py-2 border rounded-md"
-                            onClick={() => handleOfferClick(item.id, offer)}
-                          >
-                            View
-                          </button>
-                        </td>
-                      </tr>
+                      <div key={index} className="p-4 border rounded-lg">
+                        <h4 className="text-md font-semibold">{offer.name}</h4>
+                        <p>{offer.description}</p>
+                        <button
+                          className="mt-2 px-4 py-2 bg-blue-500 text-white rounded-md"
+                          onClick={() => handleOfferClick(item.id, offer)}
+                        >
+                          View
+                        </button>
+                      </div>
                     ))}
-                  </tbody>
-                </table>
-              ) : (
-                <p className="text-center">No Offers</p>
-              )}
+                  </div>
+                ) : (
+                  <p className="text-center">No Offers</p>
+                )}
+              </div>
             </div>
           </div>
         ))}
@@ -157,7 +139,6 @@ const Profile = () => {
           onFinalize={handleFinalizeSwap}
         />
       )}
- 
     </div>
   );
 };

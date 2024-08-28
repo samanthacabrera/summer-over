@@ -32,8 +32,8 @@ const FAQ = () => {
       answer: "Swapping clothes helps reduce waste and the demand for new resources. By extending the life of clothing items, we minimize environmental impact and promote a more sustainable lifestyle."
     },
     {
-      question: "How can I provide feedback about the platform?",
-      answer: "We welcome your feedback! You can provide feedback by reaching out to our support team at support@gmail.com."
+    question: "How does swapping clothes foster sisterhood and community?",
+    answer: "Swapping clothes encourages sharing and connection among women. It builds trust, fosters bonds, and creates a sense of community as participants come together to exchange not just clothes, but also stories and experiences."
     }
   ];
 
@@ -43,7 +43,7 @@ const FAQ = () => {
         <h2 className="subheading">Frequently Asked Questions</h2>
         <div className="space-y-6">
           {faqs.map((faq, index) => (
-            <div key={index} className="p-8 rounded-lg border-current border-8 shadow-lg hover:shadow-xl bg-white bg-opacity-30 transition-all duration-300">
+            <div key={index} className="p-8 rounded-lg border-current border-4 shadow-lg hover:shadow-xl transition-all duration-300">
               <h3
                 className="text-lg mb-4 cursor-pointer"
                 onClick={() => toggleFAQ(index)}
