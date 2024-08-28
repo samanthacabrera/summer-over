@@ -4,6 +4,7 @@ const LocalList = () => {
   const [location, setLocation] = useState({ latitude: null, longitude: null });
   const [listings, setListings] = useState({});
   const [openCity, setOpenCity] = useState(null);
+  const [currentItemIndex, setCurrentItemIndex] = useState(0);
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
@@ -37,10 +38,19 @@ const LocalList = () => {
 
   const handleToggle = (city) => {
     setOpenCity(openCity === city ? null : city);
+    setCurrentItemIndex(0); // Reset index when changing city
   };
 
   const handleMessageOwner = (email) => {
     window.location.href = `mailto:${email}`;
+  };
+
+  const handleNextItem = () => {
+    setCurrentItemIndex((prevIndex) => (prevIndex + 1) % (listings[openCity]?.length || 1));
+  };
+
+  const handlePrevItem = () => {
+    setCurrentItemIndex((prevIndex) => (prevIndex - 1 + (listings[openCity]?.length || 1)) % (listings[openCity]?.length || 1));
   };
 
   return (
@@ -52,11 +62,11 @@ const LocalList = () => {
           {/* Layout for larger screens */}
           <div className="hidden md:block">
             <div className="space-y-4">
-              <div className="flex space-x-4">
+              <div className="flex justify-center space-x-4 mb-4">
                 {Object.keys(listings).map(city => (
                   <button
                     key={city}
-                    className={`p-2 border rounded-full ${openCity === city ? 'font-semibold text-teal-600 bg-white' : ''} hover:scale-105 transition-all duration-300`}
+                    className={`p-2 border rounded-full ${openCity === city ? 'font-semibold text-xl' : ''} hover:scale-105 transition-all duration-200`}
                     onClick={() => handleToggle(city)}
                   >
                     {city}
@@ -64,7 +74,7 @@ const LocalList = () => {
                 ))}
               </div>
               {openCity && (
-                <div className="flex flex-wrap -mx-2">
+                <div className="flex flex-wrap justify-center -mx-2">
                   {listings[openCity].map(item => (
                     <div key={item.id} className="flex flex-col space-y-4 border border-gray-200 rounded-lg shadow-md w-1/2 p-4 mx-2 my-4 hover:-translate-y-1 hover:shadow-lg transition duration-200">
                       <h4 className="text-lg font-semibold mb-2">{item.name}</h4>
@@ -74,13 +84,13 @@ const LocalList = () => {
                       <p className="text-sm mb-2">Condition: {item.condition}</p>
                       <div className="flex justify-center space-x-2">
                         <button
-                          className="px-2 py-1 border rounded"
+                          className="p-2 bg-white rounded hover:scale-105 transition duration-200"
                           onClick={() => handleMessageOwner(item.owner)}
                         >
                           Message Owner
                         </button>
                         <button
-                          className="px-2 py-1 border rounded"
+                          className="p-2 bg-white rounded hover:scale-105 transition duration-200"
                           onClick={() => handleMessageOwner(item.owner)}
                         >
                           Make an Offer
@@ -96,39 +106,62 @@ const LocalList = () => {
           {/* Layout for small screens */}
           <div className="md:hidden space-y-4">
             {Object.keys(listings).map(city => (
-              <div key={city}>
+              <div key={city} className="text-center">
                 <button
-                  className="w-full p-4 border border-slate-200 rounded-lg bg-white bg-opacity-10 cursor-pointer hover:scale-105 hover:shadow-xl transition-all duration-300"
+                  className="w-full p-8 rounded-lg border-current border-8 shadow-lg hover:shadow-xl hover:bg-white hover:bg-opacity-30 transition-all duration-300"
                   onClick={() => handleToggle(city)}
                 >
                   <h3 className="text-xl font-semibold mb-2">{city}</h3>
                   <p className="text-sm">{listings[city].length} items available</p>
                 </button>
                 {openCity === city && (
-                  <div className="mt-4 max-h-64 overflow-y-auto space-y-4">
-                    {listings[city].map(item => (
-                      <div key={item.id} className="flex flex-col space-y-2 rounded bg-green-800 bg-opacity-20">
-                        <h4 className="text-2xl my-4 font-semibold">{item.name}</h4>
-                        <img src={item.image} className="w-full h-64 object-cover rounded p-4" alt={item.name} />
-                        <p className="mb-2">{item.description}</p>
-                        <p>Size: {item.size}</p>
-                        <p>Condition: {item.condition}</p>
-                        <div className="flex justify-center space-x-4 pb-8">
+                  <div className="mt-4 space-y-4">
+                    {listings[city].length > 0 && (
+                      <div className="flex flex-col items-center p-8">
+                        <div className="flex flex-col space-y-2 rounded bg-green-800 bg-opacity-20 py-6 px-12">
+                          <h4 className="text-2xl my-4 font-semibold text-center">{listings[city][currentItemIndex].name}</h4>
+                          <img src={listings[city][currentItemIndex].image} className="w-full h-64 object-cover rounded p-4" alt={listings[city][currentItemIndex].name} />
+                          <p className="mb-2 text-center">{listings[city][currentItemIndex].description}</p>
+                          <p className="text-center">Size: {listings[city][currentItemIndex].size}</p>
+                          <p className="text-center">Condition: {listings[city][currentItemIndex].condition}</p>
+                          <div className="flex justify-center space-x-4 pb-8">
+                            <button
+                              className="p-2 bg-white rounded hover:scale-105 transition duration-200"
+                              onClick={() => handleMessageOwner(listings[city][currentItemIndex].owner)}
+                            >
+                              Message Owner
+                            </button>
+                            <button
+                              className="p-2 bg-white rounded hover:scale-105 transition duration-200"
+                              onClick={() => handleMessageOwner(listings[city][currentItemIndex].owner)}
+                            >
+                              Make an Offer
+                            </button>
+                          </div>
+                        </div>
+
+                        <div className="flex space-x-4 my-4">
                           <button
-                            className="p-2 rounded border hover:bg-white hover:text-teal-600 transition duration-200"
-                            onClick={() => handleMessageOwner(item.owner)}
+                            className="hover:underline pr-4"
+                            onClick={handlePrevItem}
+                            disabled={listings[city].length <= 1}
                           >
-                            Message Owner
+                            Prev
                           </button>
+
+                          {`${currentItemIndex + 1}/${listings[city].length}`}
+
                           <button
-                            className="p-2 rounded border hover:bg-white hover:text-teal-600 transition duration-200"
-                            onClick={() => handleMessageOwner(item.owner)}
+                            className="hover:underline"
+                            onClick={handleNextItem}
+                            disabled={listings[city].length <= 1}
                           >
-                            Make an Offer
+                            Next
                           </button>
+                          
                         </div>
                       </div>
-                    ))}
+                    )}
                   </div>
                 )}
               </div>

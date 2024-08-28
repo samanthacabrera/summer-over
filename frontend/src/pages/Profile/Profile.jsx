@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import Stats from './Stats';
 import ItemCard from '../../components/ItemCard';
 import OfferCard from '../../components/OfferCard';
 
@@ -87,7 +86,7 @@ const Profile = () => {
 
   return (
     <div className="flex flex-col">
-      <h1 className="mt-24 text-6xl self-center font-semibold w-fit p-8 rounded-lg hover:border-8 hover:bg-teal-700 hover:bg-opacity-50 transition-all duration-500">{user}'s Profile</h1>
+      <h1 className="mt-24 text-6xl self-center font-semibold w-fit p-8 rounded-lg border-current border-8 hover:text-white transition-all duration-500">{user}'s Profile</h1>
       <h2 className="subheading">Swaps</h2>
      
       <div className="hidden md:grid md:grid-cols-4 gap-4 mb-6">
@@ -158,7 +157,7 @@ const Profile = () => {
           onFinalize={handleFinalizeSwap}
         />
       )}
-      <Stats />
+ 
     </div>
   );
 };

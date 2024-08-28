@@ -43,7 +43,7 @@ const FAQ = () => {
         <h2 className="subheading">Frequently Asked Questions</h2>
         <div className="space-y-6">
           {faqs.map((faq, index) => (
-            <div key={index} className="p-6 border border-slate-200 rounded-lg shadow-lg bg-white bg-opacity-10 hover:shadow-xl transition-all duration-300">
+            <div key={index} className="p-8 rounded-lg border-current border-8 shadow-lg hover:shadow-xl bg-white bg-opacity-30 transition-all duration-300">
               <h3
                 className="text-lg mb-4 cursor-pointer"
                 onClick={() => toggleFAQ(index)}
