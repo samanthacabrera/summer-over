@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import OfferCard from '../../components/OfferCard';
+import ViewModal from '../../components/ViewModal';
 import Filter from '../../components/Filter';
 import Stats from './Stats';
 
@@ -112,7 +112,7 @@ const Profile = () => {
 
       <div className="space-y-6">
         {filteredItems.map((item) => (
-          <div key={item.id} className="border-current p-4 bg-white bg-opacity-50 rounded-lg border-current border-4 shadow-md hover:shadow-xl transition-all duration-300">
+          <div key={item.id} className="border-current p-4 bg-white bg-opacity-20 rounded-lg border-current border-4 shadow-md hover:shadow-xl transition-all duration-300">
             <div className="flex flex-col md:flex-row">
               <div className="md:w-1/5">
                 <h3 className="text-lg font-semibold">{item.name}</h3>
@@ -131,19 +131,19 @@ const Profile = () => {
                       <p className="text-sm">{offer.description}</p>
                       <div className="flex justify-center space-x-2">
                         <button
-                          className="mt-2 px-4 py-2 bg-blue-500 text-white rounded-md"
+                          className="p-2 bg-white rounded hover:scale-105 hover:text-gray-500 transition duration-200"
                           onClick={() => handleOfferClick(item.id, offer)}
                         >
                           View
                         </button>
                         <button
-                          className="mt-2 px-4 py-2 bg-red-500 text-white rounded-md"
+                          className="p-2 bg-white rounded hover:scale-105 hover:text-red-500 transition duration-200"
                           onClick={() => handleFinalizeSwap(false)}
                         >
                           Decline
                         </button>
                         <button
-                          className="mt-2 px-4 py-2 bg-green-500 text-white rounded-md"
+                          className="p-2 bg-white rounded hover:scale-105 hover:text-green-500 transition duration-200"
                           onClick={() => handleFinalizeSwap(true)}
                         >
                           Accept
@@ -161,7 +161,7 @@ const Profile = () => {
       </div>
 
       {selectedOffer && (
-        <OfferCard
+        <ViewModal
           offer={selectedOffer}
           onClose={handleCloseModal}
           onFinalize={() => handleFinalizeSwap(true)}

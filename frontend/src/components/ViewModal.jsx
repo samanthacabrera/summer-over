@@ -6,8 +6,8 @@ const OfferCard = ({ offer, onClose, onFinalize }) => {
   };
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-      <div className="bg-white p-4 rounded shadow-lg w-3/4 md:w-1/4">
+    <div className="fixed inset-0 flex items-center justify-center">
+      <div className="rounded bg-gray-50 p-4 w-3/4 md:w-1/4">
       
         <div className="mb-2">
           <img 

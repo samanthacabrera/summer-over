@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
+import OfferModal from '../../components/OfferModal'; 
 
 const LocalList = () => {
   const [location, setLocation] = useState({ latitude: null, longitude: null });
   const [listings, setListings] = useState({});
   const [openCity, setOpenCity] = useState(null);
   const [currentItemIndex, setCurrentItemIndex] = useState(0);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedItem, setSelectedItem] = useState(null);
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
@@ -53,6 +56,20 @@ const LocalList = () => {
     setCurrentItemIndex((prevIndex) => (prevIndex - 1 + (listings[openCity]?.length || 1)) % (listings[openCity]?.length || 1));
   };
 
+  const handleOpenModal = (item) => {
+    setSelectedItem(item);
+    setIsModalOpen(true);
+  };
+
+  const handleSelectItem = (item) => {
+    console.log('Selected item for swapping:', item);
+    setIsModalOpen(false);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
   return (
     <div className="container mx-auto p-4">
       {location.latitude && location.longitude ? (
@@ -91,7 +108,7 @@ const LocalList = () => {
                         </button>
                         <button
                           className="p-2 bg-white rounded hover:scale-105 transition duration-200"
-                          onClick={() => handleMessageOwner(item.owner)}
+                          onClick={() => handleOpenModal(item)}
                         >
                           Make an Offer
                         </button>
@@ -108,7 +125,6 @@ const LocalList = () => {
             {Object.keys(listings).map(city => (
               <div key={city} className="text-center">
                 <button
-                  className="w-full p-8 rounded-lg border-current border-4 shadow-lg hover:shadow-xl transition-all duration-300"
                   onClick={() => handleToggle(city)}
                 >
                   <h3 className="text-xl font-semibold mb-2">{city}</h3>
@@ -133,7 +149,7 @@ const LocalList = () => {
                             </button>
                             <button
                               className="p-2 bg-white rounded hover:scale-105 transition duration-200"
-                              onClick={() => handleMessageOwner(listings[city][currentItemIndex].owner)}
+                              onClick={() => handleOpenModal(listings[city][currentItemIndex])}
                             >
                               Make an Offer
                             </button>
@@ -167,6 +183,16 @@ const LocalList = () => {
               </div>
             ))}
           </div>
+
+          {/* Render OfferModal */}
+          {isModalOpen && (
+            <OfferModal
+              items={listings[openCity] || []}
+              onSelectItem={handleSelectItem}
+              onClose={handleCloseModal}
+            />
+          )}
+
         </div>
       ) : (
         <p>Loading listings...</p>
