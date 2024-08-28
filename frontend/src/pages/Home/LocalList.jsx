@@ -74,9 +74,9 @@ const LocalList = () => {
                 ))}
               </div>
               {openCity && (
-                <div className="flex flex-wrap justify-center -mx-2">
+                <div className="flex flex-wrap justify-center">
                   {listings[openCity].map(item => (
-                    <div key={item.id} className="flex flex-col space-y-4 border border-gray-200 rounded-lg shadow-md w-1/2 p-4 mx-2 my-4 hover:-translate-y-1 hover:shadow-lg transition duration-200">
+                    <div key={item.id} className="flex flex-col space-y-4 rounded bg-green-800 bg-opacity-20 p-12 m-6 hover:-translate-y-1 hover:shadow-lg transition duration-200">
                       <h4 className="text-lg font-semibold mb-2">{item.name}</h4>
                       <img src={item.image} alt={item.name} className="h-48 object-cover rounded mb-2" /> 
                       <p className="text-sm mb-2">{item.description}</p>
