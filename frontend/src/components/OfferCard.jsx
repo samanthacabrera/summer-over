@@ -7,7 +7,7 @@ const OfferCard = ({ offer, onClose, onFinalize }) => {
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-      <div className="bg-white p-4 rounded shadow-lg w-11/12 md:w-1/3">
+      <div className="bg-white p-4 rounded shadow-lg w-3/4 md:w-1/4">
       
         <div className="mb-2">
           <img 
@@ -22,22 +22,16 @@ const OfferCard = ({ offer, onClose, onFinalize }) => {
         
         <div className="flex justify-end space-x-2">
           <button
-            className="p-2 border rounded text-slate-400 hover:text-slate-500"
+            className="hover:underline"
             onClick={onClose}
           >
             Cancel
           </button>
           <button
-            className="p-2 border rounded text-slate-400 hover:text-slate-500"
+            className="hover:underline"
             onClick={handleDirectMessage}
           >
             Message Owner
-          </button>
-          <button
-            className="p-2 border rounded text-slate-400 hover:text-green-500"
-            onClick={onFinalize}
-          >
-            Finalize Swap
           </button>
         </div>
       </div>

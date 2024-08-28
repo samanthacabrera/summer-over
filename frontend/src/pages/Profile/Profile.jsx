@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
 import OfferCard from '../../components/OfferCard';
 import Filter from '../../components/Filter';
+import Stats from './Stats';
 
 const Profile = () => {
   const user = 'Sam';
+  const itemsSwapped = 10;
+  const itemsDonated = 2;
+
   const initialItems = [
     { 
       id: 1, 
@@ -66,15 +70,17 @@ const Profile = () => {
     setSelectedItemId(itemId);
   };
 
-  const handleFinalizeSwap = () => {
+  const handleFinalizeSwap = (accept) => {
     if (selectedItemId && selectedOffer) {
-      setItems((prevItems) =>
-        prevItems.map((item) =>
-          item.id === selectedItemId && !item.swappedWith
-            ? { ...item, swappedWith: selectedOffer.name }
-            : item
-        )
-      );
+      if (accept) {
+        setItems((prevItems) =>
+          prevItems.map((item) =>
+            item.id === selectedItemId && !item.swappedWith
+              ? { ...item, swappedWith: selectedOffer.name }
+              : item
+          )
+        );
+      }
       setSelectedOffer(null);
       setSelectedItemId(null);
     }
@@ -92,37 +98,59 @@ const Profile = () => {
   });
 
   return (
-    <div className="flex flex-col p-8">
+    <div className="flex flex-col p-8 min-h-screen space-y-12">
       <h1 className="mt-8 text-4xl self-center font-semibold">{user}'s Profile</h1>
-      <h2 className="subheading mt-6">Swaps</h2>
+        <Stats itemsSwapped={itemsSwapped} itemsDonated={itemsDonated} />
+        <Filter filter={filter} setFilter={setFilter} />
 
-      <Filter filter={filter} setFilter={setFilter} />
+      <div className="hidden md:grid md:grid-cols-5 gap-4 mb-6 text-lg font-semibold text-center">
+        <div>My Item</div>
+        <div>Status</div>
+        <div>Swapped Item</div>
+        <div>Offers</div>
+      </div>
 
       <div className="space-y-6">
         {filteredItems.map((item) => (
-          <div key={item.id} className="border p-4 rounded-lg shadow-md">
+          <div key={item.id} className="border-current p-4 bg-white bg-opacity-50 rounded-lg border-current border-4 shadow-md hover:shadow-xl transition-all duration-300">
             <div className="flex flex-col md:flex-row">
-              <div className="md:w-1/3">
+              <div className="md:w-1/5">
                 <h3 className="text-lg font-semibold">{item.name}</h3>
-                <p>{item.swappedWith ? `Swapped With: ${item.swappedWith}` : 'Available'}</p>
-                <p>City: {item.city}</p>
               </div>
-              <div className="md:w-2/3 mt-4 md:mt-0">
+              <div className="md:w-1/5">
+                <p>{item.swappedWith ? 'Swapped' : 'Available'}</p>
+              </div>
+              <div className="md:w-1/5">
+                <p>{item.swappedWith ? item.swappedWith : 'n/a'}</p>
+              </div>
+              <div className="md:w-2/5 mt-4 md:mt-0 space-y-4">
                 {item.offers.length > 0 ? (
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    {item.offers.map((offer, index) => (
-                      <div key={index} className="p-4 border rounded-lg">
-                        <h4 className="text-md font-semibold">{offer.name}</h4>
-                        <p>{offer.description}</p>
+                  item.offers.map((offer, index) => (
+                    <div key={index} className="pb-4 border-current border-b-2">
+                      <h4 className="text-md font-semibold">{offer.name}</h4>
+                      <p className="text-sm">{offer.description}</p>
+                      <div className="flex justify-center space-x-2">
                         <button
                           className="mt-2 px-4 py-2 bg-blue-500 text-white rounded-md"
                           onClick={() => handleOfferClick(item.id, offer)}
                         >
                           View
                         </button>
+                        <button
+                          className="mt-2 px-4 py-2 bg-red-500 text-white rounded-md"
+                          onClick={() => handleFinalizeSwap(false)}
+                        >
+                          Decline
+                        </button>
+                        <button
+                          className="mt-2 px-4 py-2 bg-green-500 text-white rounded-md"
+                          onClick={() => handleFinalizeSwap(true)}
+                        >
+                          Accept
+                        </button>
                       </div>
-                    ))}
-                  </div>
+                    </div>
+                  ))
                 ) : (
                   <p className="text-center">No Offers</p>
                 )}
@@ -136,7 +164,7 @@ const Profile = () => {
         <OfferCard
           offer={selectedOffer}
           onClose={handleCloseModal}
-          onFinalize={handleFinalizeSwap}
+          onFinalize={() => handleFinalizeSwap(true)}
         />
       )}
     </div>
