@@ -93,7 +93,7 @@ const LocalList = () => {
               {openCity && (
                 <div className="flex flex-wrap justify-center">
                   {listings[openCity].map(item => (
-                    <div key={item.id} className="flex flex-col space-y-4 rounded bg-green-800 bg-opacity-20 p-12 m-6 hover:-translate-y-1 hover:shadow-lg transition duration-200">
+                    <div key={item.id} style={{ width: '400px', height: '500px' }} className="flex flex-col space-y-4 rounded bg-green-800 bg-opacity-20 p-12 m-6 hover:-translate-y-1 hover:shadow-lg transition duration-200">
                       <h4 className="text-lg font-semibold mb-2">{item.name}</h4>
                       <img src={item.image} alt={item.name} className="h-48 object-cover rounded mb-2" /> 
                       <p className="text-sm mb-2">{item.description}</p>
@@ -134,7 +134,7 @@ const LocalList = () => {
                   <div className="mt-4 space-y-4">
                     {listings[city].length > 0 && (
                       <div className="flex flex-col items-center p-8">
-                        <div className="flex flex-col space-y-2 rounded bg-green-800 bg-opacity-20 py-6 px-12">
+                        <div style={{ width: '400px', height: '550px' }} className="flex flex-col space-y-2 rounded bg-green-800 bg-opacity-20 py-6 px-12">
                           <h4 className="text-2xl my-4 font-semibold text-center">{listings[city][currentItemIndex].name}</h4>
                           <img src={listings[city][currentItemIndex].image} className="w-full h-64 object-cover rounded p-4" alt={listings[city][currentItemIndex].name} />
                           <p className="mb-2 text-center">{listings[city][currentItemIndex].description}</p>
@@ -184,7 +184,7 @@ const LocalList = () => {
             ))}
           </div>
 
-          {/* Render OfferModal */}
+          
           {isModalOpen && (
             <OfferModal
               items={listings[openCity] || []}
