@@ -15,20 +15,20 @@ const LocalList = () => {
         const { latitude, longitude } = position.coords;
         setLocation({ latitude, longitude });
 
-        const mockListings = {
+      const mockListings = {
           'Denver': [
-            { id: 1, name: 'Vintage Dress', description: 'Beautiful vintage dress.', image: 'https://via.placeholder.com/150x250', size: 'M', condition: 'Good', owner: 'owner1@example.com' },
-            { id: 2, name: 'Leather Jacket', description: 'Stylish leather jacket.', image: 'https://via.placeholder.com/150x250', size: 'L', condition: 'Excellent', owner: 'owner2@example.com' },
-            { id: 3, name: 'Floral Skirt', description: 'Pretty floral skirt.', image: 'https://via.placeholder.com/150x250', size: 'S', condition: 'Fair', owner: 'owner3@example.com' },
+            { id: 1, name: 'Cozy Sweater', description: 'Warm and comfortable sweater, perfect for chilly days.', image: '/sweater.jpg', size: 'M', condition: 'Good', owner: 'owner1@example.com' },
+            { id: 2, name: 'Casual Tank', description: 'Simple yet stylish top for everyday wear.', image: '/top.jpg', size: 'L', condition: 'Excellent', owner: 'owner2@example.com' },
+            { id: 3, name: 'Knit Blouse', description: 'Handmade pale blue knit blouse.', image: '/knit.jpg', size: 'One Size', condition: 'Fair', owner: 'owner3@example.com' },
           ],
-          'Centennial': [
-            { id: 4, name: 'Denim Jacket', description: 'Trendy denim jacket.', image: 'https://via.placeholder.com/150x250', size: 'M', condition: 'New', owner: 'owner4@example.com' },
-            { id: 5, name: 'Wool Sweater', description: 'Cozy wool sweater.', image: 'https://via.placeholder.com/150x250', size: 'S', condition: 'Good', owner: 'owner5@example.com' },
-            { id: 6, name: 'Summer Dress', description: 'Light summer dress.', image: 'https://via.placeholder.com/150x250', size: 'M', condition: 'Used', owner: 'owner6@example.com' },
+          'Colorado Springs': [
+            { id: 4, name: 'Pleated Skirt', description: 'Tan and green pleated skirt, versatile for different occasions.', image: '/skirt.jpg', size: 'M', condition: 'New', owner: 'owner4@example.com' },
+            { id: 5, name: 'Denim Jeans', description: 'Classic denim jeans, a staple for any wardrobe.', image: '/jeans.jpg', size: 'S', condition: 'Good', owner: 'owner5@example.com' },
+            { id: 6, name: 'Gingham Vest', description: 'Lightweight vest, perfect for layering.', image: '/vest.jpg', size: 'M', condition: 'Used', owner: 'owner6@example.com' },
           ],
           'Boulder': [
-            { id: 7, name: 'Casual T-Shirt', description: 'Comfortable casual T-shirt.', image: 'https://via.placeholder.com/150x250', size: 'L', condition: 'Excellent', owner: 'owner7@example.com' },
-            { id: 8, name: 'Running Shoes', description: 'Durable running shoes.', image: 'https://via.placeholder.com/150x250', size: '10', condition: 'Good', owner: 'owner8@example.com' },
+            { id: 7, name: 'Blouse', description: 'Comfortable, elegant blouse for both casual and formal occasions.', image: '/blouse.jpg', size: 'L', condition: 'Excellent', owner: 'owner7@example.com' },
+            { id: 8, name: 'Casual Shirt', description: 'Simple and comfortable shirt, great for everyday wear.', image: '/shirt.jpg', size: 'M', condition: 'Good', owner: 'owner8@example.com' },
           ],
         };
         setListings(mockListings);
@@ -41,7 +41,7 @@ const LocalList = () => {
 
   const handleToggle = (city) => {
     setOpenCity(openCity === city ? null : city);
-    setCurrentItemIndex(0); // Reset index when changing city
+    setCurrentItemIndex(0); 
   };
 
   const handleMessageOwner = (email) => {
