@@ -8,6 +8,7 @@ const LocalList = () => {
   const [currentItemIndex, setCurrentItemIndex] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
+  const [offerStatus, setOfferStatus] = useState({}); // Track offer status for items
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
@@ -15,7 +16,7 @@ const LocalList = () => {
         const { latitude, longitude } = position.coords;
         setLocation({ latitude, longitude });
 
-      const mockListings = {
+        const mockListings = {
           'Denver': [
             { id: 1, name: 'Cozy Sweater', description: 'Warm and comfortable sweater, perfect for chilly days.', image: '/sweater.jpg', size: 'M', condition: 'Good', owner: 'owner1@example.com' },
             { id: 2, name: 'Casual Tank', description: 'Simple yet stylish top for everyday wear.', image: '/top.jpg', size: 'L', condition: 'Excellent', owner: 'owner2@example.com' },
@@ -63,7 +64,8 @@ const LocalList = () => {
 
   const handleSelectItem = (item) => {
     console.log('Selected item for swapping:', item);
-    setIsModalOpen(false);
+    setOfferStatus(prevStatus => ({ ...prevStatus, [item.id]: 'Pending Offer' })); // Update offer status
+    setIsModalOpen(false); // Close the modal
   };
 
   const handleCloseModal = () => {
@@ -107,10 +109,15 @@ const LocalList = () => {
                           Message Owner
                         </button>
                         <button
-                          className="p-2 bg-white rounded hover:scale-105 transition duration-200"
-                          onClick={() => handleOpenModal(item)}
+                          className={`p-2 rounded transition duration-200 ${offerStatus[item.id] === 'Pending Offer' ? 'bg-gray-500 text-white' : 'bg-white'} hover:scale-105`}
+                          onClick={() => {
+                            if (offerStatus[item.id] !== 'Pending Offer') {
+                              handleOpenModal(item);
+                            }
+                          }}
+                          disabled={offerStatus[item.id] === 'Pending Offer'}
                         >
-                          Make an Offer
+                          {offerStatus[item.id] || 'Make an Offer'}
                         </button>
                       </div>
                     </div>
@@ -148,10 +155,15 @@ const LocalList = () => {
                               Message Owner
                             </button>
                             <button
-                              className="p-2 bg-white rounded hover:scale-105 transition duration-200"
-                              onClick={() => handleOpenModal(listings[city][currentItemIndex])}
+                              className={`p-2 rounded transition duration-200 ${offerStatus[listings[city][currentItemIndex].id] === 'Pending Offer' ? 'bg-gray-500 text-white' : 'bg-white'} hover:scale-105`}
+                              onClick={() => {
+                                if (offerStatus[listings[city][currentItemIndex].id] !== 'Pending Offer') {
+                                  handleOpenModal(listings[city][currentItemIndex]);
+                                }
+                              }}
+                              disabled={offerStatus[listings[city][currentItemIndex].id] === 'Pending Offer'}
                             >
-                              Make an Offer
+                              {offerStatus[listings[city][currentItemIndex].id] || 'Make an Offer'}
                             </button>
                           </div>
                         </div>
@@ -184,7 +196,6 @@ const LocalList = () => {
             ))}
           </div>
 
-          
           {isModalOpen && (
             <OfferModal
               items={listings[openCity] || []}
@@ -192,7 +203,6 @@ const LocalList = () => {
               onClose={handleCloseModal}
             />
           )}
-
         </div>
       ) : (
         <p>Loading listings...</p>
