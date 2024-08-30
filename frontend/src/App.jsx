@@ -10,7 +10,7 @@ const App = () => {
         <nav className="flex space-x-4">
           <Link to="/" className="hover:underline">Home</Link>
           <Link to="/profile" className="hover:underline">Profile</Link>
-          <Link to="/" className="hover:underline">Login</Link>
+          <Link to="/" className="hover:underline">Logout</Link>
         </nav>
         <Routes>
           <Route path="/" element={<Home />} />

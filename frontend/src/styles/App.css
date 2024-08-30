@@ -17,10 +17,12 @@
   text-transform: lowercase;
 }
 
+#viewModal {
+  background-color: rgb(199, 210, 183);
+}
+
 /* color palette  
 background: #e9edc9 
-primary font: #7c797a
-headings: 
-subtle text:  #ccd5ae;
-accent: 
+primary font: #7c797a 
+accent font:  #ccd5ae;
 */
