@@ -123,8 +123,8 @@ const LocalList = () => {
           {/* Layout for small screens */}
           <div className="md:hidden space-y-4">
             {Object.keys(listings).map(city => (
-              <div key={city} className="text-center">
-                <button
+              <div key={city} className="text-center rounded ">
+                <button className="hover:scale-110 transition duration-200"
                   onClick={() => handleToggle(city)}
                 >
                   <h3 className="text-xl font-semibold mb-2">{city}</h3>
@@ -134,7 +134,7 @@ const LocalList = () => {
                   <div className="mt-4 space-y-4">
                     {listings[city].length > 0 && (
                       <div className="flex flex-col items-center p-8">
-                        <div style={{ width: '400px', height: '550px' }} className="flex flex-col space-y-2 rounded bg-green-800 bg-opacity-20 py-6 px-12">
+                        <div style={{ width: '400px', height: '550px' }} className="flex flex-col space-y-2 shadow rounded bg-green-800 bg-opacity-20 py-6 px-12">
                           <h4 className="text-2xl my-4 font-semibold text-center">{listings[city][currentItemIndex].name}</h4>
                           <img src={listings[city][currentItemIndex].image} className="w-full h-64 object-cover rounded p-4" alt={listings[city][currentItemIndex].name} />
                           <p className="mb-2 text-center">{listings[city][currentItemIndex].description}</p>

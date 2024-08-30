@@ -10,10 +10,10 @@ const Welcome = () => {
         </p>
         <p>
           My Sister's Closet is a space where you can slow down and discover pieces that truly resonate with you, 
-          while connecting with the women around you. Because in the end, it's not just about the clothes; it's about the stories we create together.
+          while connecting with the women around you. Because in the end, it's not just about the clothes; it's about the connections we create.
         </p>
-        <p className="font-semibold italic mt-8">
-          Now when you are asked got your clothes, you can proudly say, "My Sister's Closet."
+        <p className="italic mt-12">
+          Now, when asked where you got your clothes, you can proudly say, 'My Sister's Closet.'
         </p>
       </div>
     </section>

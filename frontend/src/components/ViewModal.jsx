@@ -1,17 +1,12 @@
 import React from 'react';
 
-const OfferCard = ({ offer, onClose, onFinalize }) => {
-  const handleDirectMessage = () => {
-    console.log(`Direct messaging initiated with the owner of ${offer.name}`);
-  };
-
+const ViewModal = ({ offer, onClose }) => {
   return (
     <div className="fixed inset-0 flex items-center justify-center">
       <div className="rounded bg-gray-50 p-4 w-3/4 md:w-1/4">
-      
         <div className="mb-2">
           <img 
-            src="https://via.placeholder.com/150x200" 
+            src={offer.image || "https://via.placeholder.com/150x200"} 
             alt={offer.name} 
             className="w-full h-auto"
           />
@@ -25,13 +20,7 @@ const OfferCard = ({ offer, onClose, onFinalize }) => {
             className="hover:underline"
             onClick={onClose}
           >
-            Cancel
-          </button>
-          <button
-            className="hover:underline"
-            onClick={handleDirectMessage}
-          >
-            Message Owner
+            Close
           </button>
         </div>
       </div>
@@ -39,4 +28,4 @@ const OfferCard = ({ offer, onClose, onFinalize }) => {
   );
 };
 
-export default OfferCard;
+export default ViewModal;

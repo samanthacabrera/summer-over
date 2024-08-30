@@ -5,62 +5,90 @@ import Stats from './Stats';
 
 const Profile = () => {
   const user = 'Sam';
-  const itemsSwapped = 10;
-  const itemsDonated = 2;
+  const itemsSwapped = 2;
 
-  const initialItems = [
-    { 
+  const myItems = [
+    {
       id: 1, 
-      name: 'Red Dress', 
+      name: 'Ruffle Blouse', 
       swappedWith: null, 
-      city: 'Denver',
+      image: '/myitem1.jpg',
       offers: [
-        { name: 'Blue Shirt', description: 'A stylish blue shirt made of 100% cotton.' },
-        { name: 'Green Scarf', description: 'A warm green scarf, perfect for winter.' },
-        { name: 'Yellow Hat', description: 'A bright yellow hat, great for sunny days.' }
-      ] 
+        { 
+          name: 'Yellow Tank', 
+          description: 'A stylish yellow tank top, perfect for warm weather.', 
+          image: '/offer1.jpg' 
+        },
+        { 
+          name: 'Oversized T-Shirt', 
+          description: 'A relaxed-fit oversized t-shirt, great for casual wear.', 
+          image: '/offer2.jpg' 
+        },
+        { 
+          name: 'Green Button-up', 
+          description: 'A versatile green button-up shirt, ideal for layering.', 
+          image: '/offer3.jpg' 
+        }
+      ],
+      completed: false
     },
     { 
       id: 2, 
-      name: 'Leather Jacket', 
+      name: 'Linen Shorts', 
       swappedWith: null, 
-      city: 'Denver',
+      image: '/myitem2.jpg',
       offers: [
-        { name: 'Winter Coat', description: 'A heavy winter coat, ideal for snowy weather.' },
-        { name: 'Brown Boots', description: 'Durable brown boots, made of genuine leather.' }
-      ] 
+        { 
+          name: 'Knit Poncho', 
+          description: 'A cozy knit poncho, perfect for cooler days.', 
+          image: '/offer4.jpg' 
+        },
+        { 
+          name: 'Ribbed Top', 
+          description: 'A comfortable ribbed top, suitable for layering.', 
+          image: '/offer5.jpg' 
+        }
+      ],
+      completed: false
     },
     { 
       id: 3, 
-      name: 'Summer Hat', 
-      swappedWith: 'Scarf', 
-      city: 'Boulder',
-      offers: [] 
+      name: 'Lace Top', 
+      swappedWith: null, 
+      image: '/myitem3.jpg',
+      offers: [
+        { 
+          name: 'Cropped Cardigan', 
+          description: 'A chic cropped cardigan, ideal for stylish layering.', 
+          image: '/offer6.jpg' 
+        },
+        { 
+          name: 'Ruffle Blouse', 
+          description: 'A feminine ruffle blouse, great for dressing up.', 
+          image: '/offer7.jpg' 
+        }
+      ],
+      completed: false
     },
     { 
       id: 4, 
-      name: 'Denim Jeans', 
-      swappedWith: null, 
-      city: 'Boulder',
-      offers: [
-        { name: 'Sneakers', description: 'Comfortable sneakers, perfect for running.' },
-        { name: 'White T-Shirt', description: 'A classic white t-shirt, made of soft cotton.' },
-        { name: 'Black Belt', description: 'A stylish black belt, adjustable and versatile.' }
-      ] 
-    },
+      name: 'Blue Blouse', 
+      swappedWith: 'Denim Jacket', 
+      image: '/myitem4.jpg',
+      offers: [],
+      completed: true
+    }, 
     { 
       id: 5, 
-      name: 'Wool Sweater', 
-      swappedWith: null, 
-      city: 'Centennial',
-      offers: [
-        { name: 'Red Scarf', description: 'A warm red scarf, perfect for chilly days.' },
-        { name: 'Gray Beanie', description: 'A cozy gray beanie, great for winter.' }
-      ] 
-    },
+      name: 'Strapless Top', 
+      swappedWith: 'Casual Tank', 
+      image: '/myitem5.jpg',
+      offers: [],
+      completed: true
+    }
   ];
 
-  const [items, setItems] = useState(initialItems);
+  const [items, setItems] = useState(myItems);
   const [selectedOffer, setSelectedOffer] = useState(null);
   const [selectedItemId, setSelectedItemId] = useState(null);
   const [filter, setFilter] = useState('all');
@@ -92,7 +120,7 @@ const Profile = () => {
   };
 
   const filteredItems = items.filter(item => {
-    if (filter === 'past') return item.swappedWith;
+    if (filter === 'past') return item.swappedWith && item.completed;
     if (filter === 'current') return !item.swappedWith && item.offers.length > 0;
     return true;
   });
@@ -100,30 +128,33 @@ const Profile = () => {
   return (
     <div className="flex flex-col p-8 min-h-screen space-y-12">
       <h1 className="mt-8 text-4xl self-center font-semibold">{user}'s Profile</h1>
-        <Stats itemsSwapped={itemsSwapped} itemsDonated={itemsDonated} />
-        <Filter filter={filter} setFilter={setFilter} />
+      <Stats itemsSwapped={itemsSwapped} />
+      <Filter filter={filter} setFilter={setFilter} />
 
-      <div className="hidden md:grid md:grid-cols-5 gap-4 mb-6 text-lg font-semibold text-center">
-        <div>My Item</div>
-        <div>Status</div>
-        <div>Swapped Item</div>
-        <div>Offers</div>
+      <div className="hidden md:grid md:grid-cols-2 mr-24 mb-6 text-lg font-semibold text-center">
+          <div className="md:grid md:grid-cols-3">
+            <div>My Item</div>
+            <div>Status</div>
+            <div>Swapped Item</div>
+          </div>
+          <div>Offers</div>
       </div>
 
       <div className="space-y-6">
         {filteredItems.map((item) => (
           <div key={item.id} className="border-current p-4 bg-white bg-opacity-20 rounded-lg border-current border-4 shadow-md hover:shadow-xl transition-all duration-300">
             <div className="flex flex-col md:flex-row">
-              <div className="md:w-1/5">
+              <div className="md:w-1/6">
                 <h3 className="text-lg font-semibold">{item.name}</h3>
+                {item.image && <img src={item.image} alt={item.name} className="w-full h-64 object-cover rounded mb-2" />}
               </div>
-              <div className="md:w-1/5">
+              <div className="md:w-1/6">
                 <p>{item.swappedWith ? 'Swapped' : 'Available'}</p>
               </div>
-              <div className="md:w-1/5">
+              <div className="md:w-1/6">
                 <p>{item.swappedWith ? item.swappedWith : 'n/a'}</p>
               </div>
-              <div className="md:w-2/5 mt-4 md:mt-0 space-y-4">
+              <div className="md:w-2/3 mt-4 md:mt-0 space-y-4">
                 {item.offers.length > 0 ? (
                   item.offers.map((offer, index) => (
                     <div key={index} className="pb-4 border-current border-b-2">
@@ -152,7 +183,7 @@ const Profile = () => {
                     </div>
                   ))
                 ) : (
-                  <p className="text-center">No Offers</p>
+                  <p className="text-sm opacity-70">No current offers, swap complete.</p>
                 )}
               </div>
             </div>
@@ -161,11 +192,11 @@ const Profile = () => {
       </div>
 
       {selectedOffer && (
-        <ViewModal
-          offer={selectedOffer}
-          onClose={handleCloseModal}
-          onFinalize={() => handleFinalizeSwap(true)}
-        />
+      <ViewModal
+        item={items.find(item => item.id === selectedItemId)}
+        offer={selectedOffer}
+        onClose={handleCloseModal}
+      />
       )}
     </div>
   );
