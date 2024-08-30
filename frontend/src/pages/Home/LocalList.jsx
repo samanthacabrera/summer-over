@@ -8,7 +8,7 @@ const LocalList = () => {
   const [currentItemIndex, setCurrentItemIndex] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
-  const [offerStatus, setOfferStatus] = useState({}); // Track offer status for items
+  const [offerStatus, setOfferStatus] = useState({});
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
@@ -40,9 +40,15 @@ const LocalList = () => {
     );
   }, []);
 
+  const myItems = [
+    { id: 1, name: 'Ruffle Blouse', swappedWith: null },
+    { id: 2, name: 'Linen Shorts', swappedWith: null },
+    { id: 3, name: 'Lace Top', swappedWith: null },
+  ];
+
   const handleToggle = (city) => {
     setOpenCity(openCity === city ? null : city);
-    setCurrentItemIndex(0); 
+    setCurrentItemIndex(0);
   };
 
   const handleMessageOwner = (email) => {
@@ -63,13 +69,14 @@ const LocalList = () => {
   };
 
   const handleSelectItem = (item) => {
-    console.log('Selected item for swapping:', item);
-    setOfferStatus(prevStatus => ({ ...prevStatus, [item.id]: 'Pending Offer' })); // Update offer status
-    setIsModalOpen(false); // Close the modal
+    // Update offer status and close modal
+    setOfferStatus(prevStatus => ({ ...prevStatus, [item.id]: 'Pending Offer' }));
+    setIsModalOpen(false);
   };
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
+    setSelectedItem(null);
   };
 
   return (
@@ -97,7 +104,7 @@ const LocalList = () => {
                   {listings[openCity].map(item => (
                     <div key={item.id} style={{ width: '400px', height: '500px' }} className="flex flex-col space-y-4 rounded bg-green-800 bg-opacity-20 p-12 m-6 hover:-translate-y-1 hover:shadow-lg transition duration-200">
                       <h4 className="text-lg font-semibold mb-2">{item.name}</h4>
-                      <img src={item.image} alt={item.name} className="h-48 object-cover rounded mb-2" /> 
+                      <img src={item.image} alt={item.name} className="h-48 object-cover rounded mb-2" />
                       <p className="text-sm mb-2">{item.description}</p>
                       <p className="text-sm mb-2">Size: {item.size}</p>
                       <p className="text-sm mb-2">Condition: {item.condition}</p>
@@ -131,9 +138,7 @@ const LocalList = () => {
           <div className="md:hidden space-y-4">
             {Object.keys(listings).map(city => (
               <div key={city} className="text-center rounded ">
-                <button className="hover:scale-110 transition duration-200"
-                  onClick={() => handleToggle(city)}
-                >
+                <button className="hover:scale-110 transition duration-200" onClick={() => handleToggle(city)}>
                   <h3 className="text-xl font-semibold mb-2">{city}</h3>
                   <p className="text-sm">{listings[city].length} items available</p>
                 </button>
@@ -186,7 +191,6 @@ const LocalList = () => {
                           >
                             Next
                           </button>
-                          
                         </div>
                       </div>
                     )}
@@ -198,7 +202,7 @@ const LocalList = () => {
 
           {isModalOpen && (
             <OfferModal
-              items={listings[openCity] || []}
+              items={myItems}
               onSelectItem={handleSelectItem}
               onClose={handleCloseModal}
             />

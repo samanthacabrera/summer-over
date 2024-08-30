@@ -18,7 +18,7 @@ const ViewModal = ({ item, offer, onClose, onFinalizeSwap }) => {
       <div id="viewModal" className="rounded bg-gray-50 p-12">
         <h2 className="text-xl font-semibold mb-4">Offer Details</h2>
         <div className="mb-4">
-          <img src={offer.image} alt={offer.name} className="w-full h-40 object-cover rounded" />
+          <img src={offer.image} alt={offer.name} className="w-full h-64 object-cover rounded mb-2" />
         </div>
         <h3 className="text-lg font-semibold">{offer.name}</h3>
         <p>{offer.description}</p>

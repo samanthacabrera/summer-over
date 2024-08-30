@@ -1,11 +1,10 @@
-import React, { useState} from 'react';
+import React, { useState } from 'react';
 import ViewModal from '../../components/ViewModal';
 import Filter from '../../components/Filter';
 import Stats from './Stats';
 
 const Profile = () => {
   const user = 'Sam';
-  const itemsSwapped = 2;
 
   const myItems = [
     {
@@ -62,7 +61,7 @@ const Profile = () => {
 
   const [items, setItems] = useState(myItems);
   const [modalItem, setModalItem] = useState(null);
-  const [filter, setFilter] = useState('all'); 
+  const [filter, setFilter] = useState('all');
 
   const handleOfferClick = (itemId, offer) => {
     console.log('Offer clicked:', { itemId, offer });
@@ -113,6 +112,8 @@ const Profile = () => {
     return true; 
   });
 
+
+  const itemsSwapped = items.filter(item => item.completed).length;
 
   return (
     <div className="flex flex-col p-8 min-h-screen space-y-12">

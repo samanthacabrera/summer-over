@@ -10,7 +10,6 @@ const OfferModal = ({ items, onSelectItem, onClose }) => {
             <div key={item.id} className="flex justify-between items-center border-b p-4 rounded hover:bg-green-800 hover:bg-opacity-20">
               <div className="flex flex-col items-start">
                 <h4 className="font-semibold">{item.name}</h4>
-                <p className="text-sm text-gray-600">{item.description}</p>
               </div>
               <button
                 className="hover:underline"
